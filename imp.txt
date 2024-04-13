@@ -1,0 +1,21 @@
+https://www.codingninjas.com/codestudio/problems/fire-in-the-cells_920460?leftPanelTab=0
+vha pr solution bhi h iska
+
+
+https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array
+Trie se hoga !!!
+
+https://www.codingninjas.com/studio/problems/beautiful-vertices_3153025?leftPanelTab=2
+articulation point h
+
+https://leetcode.com/problems/remove-boxes/
+https://leetcode.com/problems/strange-printer/
+DP ki achi problem hai
+
+
+atcoder dp ki - remaining hai abhi -
+ J
+
+trapping rain water 1, 2
+skyline problem dekhni h imp h
+ee

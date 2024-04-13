@@ -75,28 +75,93 @@ template <class T> void _print(unordered_set <T> v) {cerr << "[ "; for (T i : v)
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 //--------------------------------------------SOLUTION OF THE PROBLEM--------------------------?//
+struct Node{
+    int val;
+    int key;
+    Node* next;
+    Node(int k, int v){
+        val = v;
+        key = k;
+        next = NULL;
+    }
+};
+class MyHashMap {
+public:
+    vector<Node*> arr;
+    MyHashMap() {
+        arr.assign(10007, NULL);
+    }
+    
+    int hash(int key){
+        return key % 10007;
+    }
+    void put(int key, int value) {
+        int h = hash(key);
+        
+        if(arr[h] == NULL){
+            arr[h] = new Node(key, value);
+        }
+        else{
+            Node * ptr = arr[h];
+            while(ptr->next and ptr->key != key){
+                ptr = ptr->next;
+            }
+            if(ptr->key == key){
+                ptr->val = value;
+            }else{
+                ptr->next = new Node(key, value);
+            }
+        }
+    }
+    
+    int get(int key) {
+        int h = hash(key);
+        if(arr[h]==NULL){
+            return -1;
+        }else{
+            Node * ptr = arr[h];
+            while(ptr){
+                if(ptr->key == key){
+                    return ptr->val;
+                }
+                ptr = ptr->next;
+            }
+            return -1;
+        }
+    }
+    
+    void remove(int key) {
+        int h = hash(key);
+        Node * ptr = arr[h], * prev = NULL;
+
+        while(ptr){
+            if(ptr->key == key){
+                if(prev == NULL){
+                    arr[h] = ptr->next;
+                }else{
+                    prev->next = ptr->next;
+                    
+                }
+                delete(ptr);
+                return;
+            }
+            prev = ptr;
+            ptr = ptr->next;
+        }
+    }
+};
 void solve(){
     /* हर हर महादेव */
-    vi v;
-    string a;
-    getline(cin, a);
-    stringstream s(a);
-    int temp;
-    while(s >> temp) v.pb(temp);
-    int x;
-    cin >> x;
-    sort(all(v));
-    debug(v)
-    int ans =0;
-    int i = 0, j = (int)v.size()-1;
-    while(i <= j){
-        if(v[i] + v[j] <= x){
-            j--;
-        }
-        i++;
-        ans++;
-    }
-    cout<<ans;
+    MyHashMap mp;
+    mp.put(1, 2);
+    mp.put(2, 3);
+    mp.put(3, 4);
+    mp.put(2, 5);
+    cout<<mp.get(2);
+    mp.remove(2);
+    cout<<mp.get(2);
+
+    //similar implementation can be done for hash map
 }
 
 int32_t main()
@@ -111,8 +176,8 @@ int32_t main()
         freopen("Error.in", "w", stderr);
     #endif
     
-    int t = 1;
-    // cin >> t;
+    int t;
+    cin >> t;
     while(t--){
         solve();
     }

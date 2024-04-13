@@ -75,28 +75,96 @@ template <class T> void _print(unordered_set <T> v) {cerr << "[ "; for (T i : v)
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 //--------------------------------------------SOLUTION OF THE PROBLEM--------------------------?//
+class Minheap{
+public:
+    vector<int> arr;
+    int size;
+    // 1 based indexing
+    Minheap(){
+        arr = vector<int>(100005);
+        size = 0;
+        arr[0] = -1;
+    }
+
+    void insert(int x){
+        int index = ++size;
+        arr[index] = x;
+         
+        while(index > 1){
+            int parent = (index)/2;
+            if(arr[parent] > arr[index]){
+                swap(arr[parent], arr[index]);
+                index = parent;
+            }else{
+                return;
+            }
+        }
+    }
+
+    int removeElement(){
+        int x = arr[1];
+        arr[1] = arr[size];
+        size--;
+        int root = 1;
+        while(1){
+            int left = 2 * root;
+            int right = 2 * root + 1;
+            int small = root;
+            if(left <= size and arr[left] < arr[small]){
+                small = left;
+            }
+            if(right <= size and arr[right] < arr[small]){
+                small = right;
+            }
+            if(small != root){
+                swap(arr[root], arr[small]);
+                root = small;
+            }
+            else{
+                break;
+            }
+        }
+        return x;
+    }
+};
+void heapify(vi &arr, int n, int index){
+
+	int largest = index;
+	int left = 2 * index;
+	int right = 2 * index + 1;
+
+	if(left <= n and arr[largest] < arr[left]){
+		largest = left;
+	}
+	if(right <= n and arr[largest] < arr[right]){
+		largest = right;
+	}
+
+	if(largest != index){
+		swap(arr[index], arr[largest]);
+		heapify(arr, n, largest);
+	}
+
+}
 void solve(){
     /* हर हर महादेव */
-    vi v;
-    string a;
-    getline(cin, a);
-    stringstream s(a);
-    int temp;
-    while(s >> temp) v.pb(temp);
-    int x;
-    cin >> x;
-    sort(all(v));
-    debug(v)
-    int ans =0;
-    int i = 0, j = (int)v.size()-1;
-    while(i <= j){
-        if(v[i] + v[j] <= x){
-            j--;
-        }
-        i++;
-        ans++;
+    heap h;
+    h.insert(1);
+    h.insert(2);
+    h.insert(3);
+    h.insert(4);
+    h.insert(5);
+    h.print();
+    h.deletefromheap();
+    h.print();
+
+    vi arr = {-1, 54, 53, 55, 52, 50};
+    int n = arr.size();
+    for(int i = n/2; i >= 1; i--){
+    	heapify(arr, n, i);
     }
-    cout<<ans;
+    COUT(arr)
+
 }
 
 int32_t main()
@@ -111,8 +179,8 @@ int32_t main()
         freopen("Error.in", "w", stderr);
     #endif
     
-    int t = 1;
-    // cin >> t;
+    int t;
+    cin >> t;
     while(t--){
         solve();
     }

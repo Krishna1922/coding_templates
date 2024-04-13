@@ -77,26 +77,16 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 //--------------------------------------------SOLUTION OF THE PROBLEM--------------------------?//
 void solve(){
     /* हर हर महादेव */
-    vi v;
-    string a;
-    getline(cin, a);
-    stringstream s(a);
-    int temp;
-    while(s >> temp) v.pb(temp);
-    int x;
-    cin >> x;
-    sort(all(v));
-    debug(v)
-    int ans =0;
-    int i = 0, j = (int)v.size()-1;
-    while(i <= j){
-        if(v[i] + v[j] <= x){
-            j--;
-        }
-        i++;
-        ans++;
+    int n;
+    cin >> n;
+    vi v(n);
+    cins(v);
+    f(i,0,n){
+    	f(j,i+1,n){
+    		if(v[i] > v[j]) swap(v[i], v[j]);
+    	}
     }
-    cout<<ans;
+    COUT(v);
 }
 
 int32_t main()
@@ -111,8 +101,8 @@ int32_t main()
         freopen("Error.in", "w", stderr);
     #endif
     
-    int t = 1;
-    // cin >> t;
+    int t;
+    cin >> t;
     while(t--){
         solve();
     }

@@ -75,28 +75,43 @@ template <class T> void _print(unordered_set <T> v) {cerr << "[ "; for (T i : v)
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 //--------------------------------------------SOLUTION OF THE PROBLEM--------------------------?//
+struct ListNode{
+    int data;
+    ListNode * next;
+    ListNode(int val){
+        data = val;
+        next = NULL;
+    }
+};
+void insert(ListNode * ptr, ListNode * node){
+    ptr->next = node;
+}
+bool isRing(ListNode * head){
+    ListNode * first = head;
+    ListNode * second = head;
+    while(second->next != NULL){
+        first = first->next;
+        second = second->next->next;
+        if(first == second){
+            return 1;
+        }
+    }
+    return 0;
+}
 void solve(){
     /* हर हर महादेव */
-    vi v;
-    string a;
-    getline(cin, a);
-    stringstream s(a);
-    int temp;
-    while(s >> temp) v.pb(temp);
-    int x;
-    cin >> x;
-    sort(all(v));
-    debug(v)
-    int ans =0;
-    int i = 0, j = (int)v.size()-1;
-    while(i <= j){
-        if(v[i] + v[j] <= x){
-            j--;
-        }
-        i++;
-        ans++;
-    }
-    cout<<ans;
+    ListNode * head = new ListNode(1);
+    ListNode * p = head;
+    insert(p, new ListNode(2));
+    p = p->next;
+    insert(p, new ListNode(3));
+    p = p->next;
+    insert(p, new ListNode(4));
+    p = p->next;
+    insert(p, new ListNode(5));
+    p = p->next;
+
+    cout<<isRing(head);
 }
 
 int32_t main()
@@ -111,8 +126,8 @@ int32_t main()
         freopen("Error.in", "w", stderr);
     #endif
     
-    int t = 1;
-    // cin >> t;
+    int t;
+    cin >> t;
     while(t--){
         solve();
     }

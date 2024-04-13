@@ -2,20 +2,21 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define ll long long int
+#define int long long int
 #define all(x) x.begin(),x.end()
 #define rall(x) x.rbegin(),x.rend()
 #define cins(x) for (auto &i : x) cin >> i
-#define vi vector<ll>
+#define vi vector<int>
 #define vvi vector<vi>
-#define mii map<ll, ll>
+#define mii map<int, int>
 #define pi 3.14159265358979323846264338327950
-#define pii pair<ll, ll>
+#define pii pair<int, int>
 #define vpi vector<pii>
 #define ff first
 #define ss second
 #define setbits(x) __builtin_popcount(x)
 #define endl '\n';
+#define in insert
 #define pb push_back
 #define f(i, a, b) for (int i = a; i < b; i += 1)
 #define rev(i, a, b, c) for (int i = a - 1; i >= b; i -= c)
@@ -42,37 +43,15 @@ typedef long double lld;
 bool isSquare(int x) {int y = sqrtl(x); return x == y * y;}
 bool ispow2(int x) {return (x ? !(x & (x - 1)) : 0);}
 int ceils(int x, int y) {return (x >= 0 ? (x + y - 1) / y : x / y);}
-int gcd(ll x, ll y) {return (x ? gcd(y % x, x) : y);}
+int gcd(int x, int y) {return (x ? gcd(y % x, x) : y);}
 int lcm(int x, int y) {return x / gcd(x, y) * y;}
 vi dx = {0,0,1,-1,1,1,-1,-1};
 vi dy = {1,-1,0,0,1,-1,1,-1};
-
-
-bool num_palindrome(ll n){
-    ll ort= n,remainder,reversed=0;
-    while (n != 0) {
-        remainder = n % 10;
-        reversed = reversed * 10 + remainder;
-        n /= 10;
-    }
-    if(ort == reversed){
-        return true;
-    }else{
-        return false;
-    }
-}
-
-string binary(int num,int n){
-    string s;
-    for(int i = n-1;i>=0;i--){
-        s.push_back(((num>>i)&1)+'0');        
-    }
-    return s;
-}
+const int mod = 1e9+7;
+const int MAXX = 2e5+5;
 
 //------------------------------------------------//
 
-void _print(ll t) {cerr << t;}
 void _print(int t) {cerr << t;}
 void _print(string t) {cerr << t;}
 void _print(char t) {cerr << t;}
@@ -98,15 +77,27 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 //--------------------------------------------SOLUTION OF THE PROBLEM--------------------------?//
 void solve(){
     /* हर हर महादेव */
-    ll n,k;
-    cin >> n >> k;
-    if(n&1){
-        cout<<n<<
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int i = 0, j = n-1;
+    bool ok = 1;
+    if(n == 1 and s[0] == 'W'){
+        cout<<0<<endl;
+        return;
     }
+    for(i = 0; i<n; i++){
+        if(s[i] == 'B') break;
+    }
+    for(j = n-1; j >= 0; j--){
+        if(s[j] == 'B') break;
+    }
+    cout << j-i+1 << endl;
 
 }
 
-int main(int argc, char const *argv[])
+int32_t main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);

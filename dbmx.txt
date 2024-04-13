@@ -1,0 +1,38 @@
+delete -------- (DML) - detete from table name;
+delete all the entries of the row 1 by 1 so it provides - 
+where clause - 
+Delete from table name
+where condition -------> delete row where condition is true;
+basically works in O(N) time
+rollback can be performed (*before commit) 
+slow ----> flexible
+
+
+Drop ------ (DDL) Delete whole table in cludng colums
+no rollback
+
+
+Truncate - delete all rows in O(1)
+rollback(recycle bin) not psbl here
+no where clause
+faster>>>>>>>>
+
+
+-----------------  constraints in SQL  -----------------
+constraints are applied at column
+1. Unique - only unique valu allowed(null can happened)
+2. Not null - mandatory field -> something has to field
+3, primary key (unique + not null) - roll no. 20205088
+4. check - only some values are allowed
+	e.g.  check(age > 18) - only greater 18 people are allowed
+
+5. Foreign key - already in notes
+6. Default - if we not give a value to a column
+			of a particular row then it will take default
+
+----------------------------clauses-------------
+having clause only works with group by
+ex - as WHERE works in row of table similarly HAVING works in groups
+
+SELECT dept from employee group by dept having count(*) < 2
+it returns - displays all the department names where employess < 2

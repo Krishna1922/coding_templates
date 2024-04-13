@@ -75,28 +75,65 @@ template <class T> void _print(unordered_set <T> v) {cerr << "[ "; for (T i : v)
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 //--------------------------------------------SOLUTION OF THE PROBLEM--------------------------?//
+int n;
+vi v(MAXX);
+void merge(int left, int mid, int right){
+    int sizeofone = mid-left+1;
+    int sizeofsecond = right-mid;
+
+    int arr1[sizeofone];
+    int arr2[sizeofsecond];
+
+    f(i,0,sizeofone){
+        arr1[i] = v[i+left];
+    }
+    f(i,0,sizeofsecond){
+        arr2[i] = v[i+mid+1];
+    }
+    int index = left, i = 0, j = 0;
+    while(i < sizeofone and j < sizeofsecond){
+        if(arr1[i] <= arr2[j]){
+            v[index] = arr1[i];
+            i++;
+        }else{
+            v[index] = arr2[j];
+            j++;
+        }
+        index++;
+    }
+    while(i < sizeofone){
+        v[index] = arr1[i];
+        i++;
+        index++;
+    }
+    while(j < sizeofsecond){
+        v[index] = arr2[j];
+        j++;
+        index++;
+    }
+}
+void mergesort(int begin, int end){ 
+    if(begin < end){
+        int mid = begin + (end - begin)/2;
+
+        mergesort(begin, mid); // 
+        mergesort(mid+1, end);
+
+        merge(begin, mid, end);
+    }
+}
 void solve(){
     /* हर हर महादेव */
-    vi v;
-    string a;
-    getline(cin, a);
-    stringstream s(a);
-    int temp;
-    while(s >> temp) v.pb(temp);
-    int x;
-    cin >> x;
-    sort(all(v));
-    debug(v)
-    int ans =0;
-    int i = 0, j = (int)v.size()-1;
-    while(i <= j){
-        if(v[i] + v[j] <= x){
-            j--;
-        }
-        i++;
-        ans++;
+    cin >> n;
+    f(i,0,n){
+        cin >> v[i];
     }
-    cout<<ans;
+    mergesort(0, n-1);
+    // T(n) = 2T(n/2) + θ(n)
+    f(i,0,n){
+     cout<<v[i]<<" ";
+    }
+    // algo is correct
 }
 
 int32_t main()
@@ -111,8 +148,8 @@ int32_t main()
         freopen("Error.in", "w", stderr);
     #endif
     
-    int t = 1;
-    // cin >> t;
+    int t;
+    cin >> t;
     while(t--){
         solve();
     }

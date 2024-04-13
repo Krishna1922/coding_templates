@@ -75,28 +75,46 @@ template <class T> void _print(unordered_set <T> v) {cerr << "[ "; for (T i : v)
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 //--------------------------------------------SOLUTION OF THE PROBLEM--------------------------?//
-void solve(){
-    /* हर हर महादेव */
-    vi v;
-    string a;
-    getline(cin, a);
-    stringstream s(a);
-    int temp;
-    while(s >> temp) v.pb(temp);
-    int x;
-    cin >> x;
-    sort(all(v));
-    debug(v)
-    int ans =0;
-    int i = 0, j = (int)v.size()-1;
+int n;
+vi v(MAXX);
+int partition(int lo, int hi){
+    int p = v[lo], i = lo+1, j = hi;
     while(i <= j){
-        if(v[i] + v[j] <= x){
+        if(v[i] > p and v[j] < p){
+            swap(v[i++], v[j--]);
+        }
+        if(v[i] <= p){
+            i++;
+        }
+        if(v[j] >= p){
             j--;
         }
-        i++;
-        ans++;
     }
-    cout<<ans;
+    swap(v[lo], v[j]);
+    return j;
+}
+void quicksort(int lo, int hi){
+	if(lo < hi){
+		int mid = lo + (hi - lo)/2;
+		int pivot = partition(lo, hi);
+
+		quicksort(lo, pivot - 1);
+		quicksort(pivot + 1, hi);
+	}
+}
+void solve(){
+    /* हर हर महादेव */
+    cin >> n;
+    f(i,0,n){
+    	cin >> v[i];
+    }
+    // best - O(nlogn)
+    // wordt - O(n^2)
+    // It is efficient on large data sets.
+	// It has a low overhead, as it only requires a small amount of memory to function.
+	// o(1) space
+    quicksort(0, n - 1);
+    f(i,0,n) cout<<v[i]<<" ";
 }
 
 int32_t main()
@@ -111,8 +129,8 @@ int32_t main()
         freopen("Error.in", "w", stderr);
     #endif
     
-    int t = 1;
-    // cin >> t;
+    int t;
+    cin >> t;
     while(t--){
         solve();
     }
